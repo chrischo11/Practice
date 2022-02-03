@@ -1,0 +1,394 @@
+db.createCollection("Customer1",{
+   validator: {
+   $jsonSchema: {
+      bsonType: "object",
+      required:["customer_numb", "customer_first_name", "customer_last_name", "customer_street", "customer_city", "customer_state", "customer_zip", "customer_phone", "order"],
+      properties: {
+         customer_numb: {
+            bsonType: "int"
+         },
+         customer_first_name: {
+            bsonType: "string"
+         },
+         customer_last_name: {
+            bsonType: "string"
+         },
+         customer_street: {
+            bsonType: "string"
+         },
+         customer_city: {
+            bsonType: "string"
+         },
+         customer_state: {
+            bsonType: "string"
+         },
+         customer_zip: {
+            bsonType: "int"
+         },
+         customer_phone: {
+            bsonType: "string"
+         },
+         order: {
+            bsonType: "object",
+            required: ["order_numb", "cumstomer_numb", "order_date", "credit_card_numb", "credit_card_exp_date", "order_complete?", "pickup_or_ship?"],
+            properties: {
+                order_numb: {
+                    bsonType: "int"
+                }, 
+                customer_numb: {
+                    bsonType: "int"
+                },
+                order_date: {
+                    bsonType: "date"
+                },
+                credit_card_numb: {
+                    bsonType: "string"
+                },
+                credit_card_exp_date: {
+                    bsonType: "date"
+                },
+                order_complete: {
+                    enum:["yes", "no"]
+                },
+                pickup_or_ship: {
+                    enum:["pickup", "ship"]
+                }
+               }
+             }
+           }
+           }
+       }
+})
+
+
+db.createCollection("Customer2",{
+   validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required:["customer_numb", "customer_first_name", "customer_last_name", "customer_street", "customer_city", "customer_state", "customer_zip", "customer_phone"],
+      properties: {
+         customer_numb: {
+            bsonType: "int"
+         },
+         customer_first_name: {
+            bsonType: "string"
+         },
+         customer_last_name: {
+            bsonType: "string"
+         },
+         customer_street: {
+            bsonType: "string"
+         },
+         customer_city: {
+            bsonType: "string"
+         },
+         customer_state: {
+            bsonType: "string"
+         },
+         customer_zip: {
+            bsonType: "int"
+         },
+         customer_phone: {
+            bsonType: "string"
+         }
+         
+         }
+       }
+   }
+})
+
+db.createCollection("order",{
+   validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required:["order_numb", "customer_numb", "order_date", "credit_card_numb", "credit_card_exp_date", "order_complete", "pickup_or_ship"],
+      properties: {
+         order_numb: {
+         bsonType: "int"
+         }, 
+         customer_numb: {
+         bsonType: "int"
+         },
+         order_date: {
+         bsonType: "string"
+         },
+         credit_card_numb: {
+         bsonType: "string"
+         },
+         credit_card_exp_date: {
+         bsonType: "string"
+         },
+         order_complete: {
+         enum:["yes", "no"]
+         },
+         pickup_or_ship: {
+         enum:["pickup", "ship"]
+         }         
+      }
+     }
+   }
+})
+
+db.Customer2.insertMany([
+    {
+     customer_numb: 1,
+     customer_first_name : "Chris", 
+     customer_last_name : "Cho", 
+     customer_street : "20615 Amie avenue", 
+     customer_city: "Torrance", 
+     customer_state: "CA", 
+     customer_zip: 90503, 
+     customer_phone: "213-706-6147"
+    },
+    {
+     customer_numb: 2,
+     customer_first_name : "Christine", 
+     customer_last_name : "Choi", 
+     customer_street : "20617 Amie avenue", 
+     customer_city: "Torrance", 
+     customer_state: "CA", 
+     customer_zip: 90503, 
+     customer_phone: "310-706-6147"
+    }
+])
+        
+db.order.insertMany([
+    {  
+     order_numb:1,
+     customer_numb: 1,
+     order_date:"2022-01-24",
+     credit_card_numb:"1234-5678-9090-1010",
+     credit_card_exp_date:"2025-05-26",
+     order_complete : "yes",
+     pickup_or_ship : "ship"     
+     },
+         
+     {        
+     order_numb:2,
+     customer_numb: 1,
+     order_date:"2022-01-24",
+     credit_card_numb:"1234-5678-9090-1010",
+     credit_card_exp_date:"2025-05-26",
+     order_complete : "yes",
+     pickup_or_ship : "ship"
+     },     
+     
+     {        
+     order_numb:3,
+     customer_numb: 1,
+     order_date:"2022-01-23",
+     credit_card_numb:"1234-5678-9090-1010",
+     credit_card_exp_date:"2025-05-26",
+     order_complete : "yes",
+     pickup_or_ship : "pickup"
+     },
+     {        
+     order_numb:4,
+     customer_numb: 2,
+     order_date:"2022-01-23",
+     credit_card_numb:"1234-5678-9090-1111",
+     credit_card_exp_date:"2026-06-26",
+     order_complete : "yes",
+     pickup_or_ship : "ship"
+     },        
+     {        
+     order_numb:5,
+     customer_numb: 2,
+     order_date:"2022-01-22",
+     credit_card_numb:"1234-5678-9090-1111",
+     credit_card_exp_date:"2026-06-26",
+     order_complete : "yes",
+     pickup_or_ship : "ship"
+     },
+     {        
+     order_numb:6,
+     customer_numb: 2,
+     order_date:"2022-01-25",
+     credit_card_numb:"1234-5678-9090-1111",
+     credit_card_exp_date:"2026-06-26",
+     order_complete : "no",
+     pickup_or_ship : "ship"
+     }
+])
+
+
+
+db.createCollection("Students", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "phone_numb", "address" ],
+         properties: {
+            name: {
+               bsonType: "string",
+               description: "must be a string if the field exists"
+            },
+            year: {
+               bsonType: "int",
+               minimum: 2017,
+               maximum: 3017,
+               description: "must be an integer in [ 2017, 3017 ] if the field exists"
+            },
+            major: {
+               enum: [ "Math", "English", "Computer Science", "History", null ],
+               description: "can only be one of the enum values"
+            },
+            gpa: {
+               bsonType: [ "double" ],
+               description: "must be a double if the field exists"
+            },
+            phone_numb: {
+               bsonType: "string",
+               description: "must be a double and is required"
+            }, 
+            address: {
+               bsonType: "object",
+               required: [ "zipcode" ],
+               properties: {
+                  street: {
+                     bsonType: "string",
+                     description: "must be a string if the field exists"
+                  },
+                  city: {
+                     bsonType: "string",
+                     description: "must be a string if the field exists"
+                  },
+                  state: {
+                     bsonType: "string",
+                     description: "must be a string if the field exists"
+                  },
+                  zipcode: {
+                     bsonType: "int",
+                     description: "must be a string and is required"
+                  },
+                  }
+               }
+            }
+         }
+      }
+   })
+
+
+db.Students.insertMany([
+    {name: "chris",
+     year:2022,
+     major:"Math",
+     gpa:3.5,
+     phone_numb:"213-706-6147",
+     address:{
+              street: "S.tremaine ave",
+              city: "Los Angeles",
+              state: "CA",
+              zipcode: 90019        
+             }
+     },  
+    {name: "christine",
+     year:2021,
+     gpa:3.6,
+     phone_numb:"213-706-6148",
+     address:{
+              street: "N.tremaine ave",
+              city: "Los Angeles",
+              state: "CA",
+              zipcode: 90021        
+             }
+     },  
+     {name: "christopher",
+     year:2022,
+     gpa:3.7,
+     phone_numb:"213-706-6149",
+     address:{
+              street: "Amie ave",
+              city: "Torrance",
+              state: "CA",
+              zipcode: 90503        
+             }
+     },
+    {name: "kris",
+     year:2018,
+     gpa:3.9,
+     phone_numb:"213-706-6150",
+     address:{
+              street: "20800 Amie ave",
+              city: "Palos Verdes",
+              state: "CA",
+              zipcode: 90275       
+             }
+     },
+    {name: "christina",
+     year:2019,
+     gpa:3.9,
+     phone_numb:"213-706-6160",
+     address:{
+              street: "20900 Tremaine ave",
+              city: "Palos Verdes",
+              state: "CA",
+              zipcode: 90274       
+             }
+     },
+    {name: "Alice",
+     year:2022,
+     major:"English",
+     gpa:3.5,
+     phone_numb:"213-706-5147",
+     address:{
+              street: "S.tremaine ave",
+              city: "Los Angeles",
+              state: "CA",
+              zipcode: 90020        
+             }
+     },  
+    {name: "Bob",
+     year:2021,
+     major:"History",
+     gpa:3.6,
+     phone_numb:"213-706-5148",
+     address:{
+              street: "N.tremaine ave",
+              city: "Los Angeles",
+              state: "CA",
+              zipcode: 90019        
+             }
+     },  
+     {name: "Chole",
+     year:2022,
+     major:"Math", 
+     gpa:3.7,
+     phone_numb:"213-706-5149",
+     address:{
+              street: "Amie ave",
+              city: "Torrance",
+              state: "CA",
+              zipcode: 90503        
+             }
+     },
+    {name: "Donny",
+     year:2018,
+     gpa:3.9,
+     phone_numb:"213-706-5150",
+     address:{
+              street: "20800 Amie ave",
+              city: "Palos Verdes",
+              state: "CA",
+              zipcode: 90275       
+             }
+     },
+    {name: "Tommy",
+     year:2019,
+     gpa:3.9,
+     phone_numb:"213-706-5160",
+     address:{
+              street: "20900 Tremaine ave",
+              city: "Palos Verdes",
+              state: "CA",
+              zipcode: 90274      
+             }
+     },
+])
+
+db.Students.createIndex({"phone_numb":1})
+
+db.Students.find({phone_numb: "213-706-5149"})
+db.Students.find( { zipcode: 90503 } ).sort( { phone_numb: 1 } )
+
+db.Students.getIndexes()
