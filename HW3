@@ -28,20 +28,20 @@ db.orders.aggregate([
 
 db.orders.aggregate([
 {$group: { "_id": ["$productName", "$status"], sumQuantity: { $sum: "$quantity" } } },
-{$sort: { '_id.0': 1, 'id.1':1, '_id.sumQuantity': 1 } }
+{$sort: { '_id.0': 1, '_id.sumQuantity': 1 } }
 ])
 
-d)?
+d)
 db.orders.aggregate([
 {$group: { "_id": {productName:"$productName", status:"$status"}, sumQuantity: { $sum: "$quantity" } } },
 {$match: { sumQuantity: { $gte: 15} } },
-{$sort: { '_id.productName': 1, '_id.status': -1 } }
+{$sort: { '_id.0': 1, '_id.sumQuantity': 1 } }
 ])
 
 db.orders.aggregate([
 {$group: { "_id": ["$productName", "$status"], sumQuantity: { $sum: "$quantity" } } },
 {$match: { sumQuantity: { $gte: 15} } },
-{$sort: { '_id.0': 1, '_id.1': -1 } }
+{$sort: { '_id.0': 1, '_id.sumQuantity': 1 } }
 ])
 
 
